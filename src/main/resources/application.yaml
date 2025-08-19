@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: chat-based-online-ordering-system
+  datasource:
+    url: jdbc:mysql://localhost:3306/chat_order?createDatabaseIfNotExist=true
+    username: root
+    password: 1234567
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/auth/jwks.json
+
+server:
+  port: 8081

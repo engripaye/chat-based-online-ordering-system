@@ -28,7 +28,6 @@ public class OrderController {
 
         var items = cartService.getCart(userId);
         var order = new Order();
-        order.setId(userId);
         order.setStatus("CREATED");
         order.setTotal(items.stream()
                 .map(i -> i.price().multiply(BigDecimal.valueOf(i.qty())))

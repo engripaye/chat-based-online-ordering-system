@@ -45,6 +45,19 @@ public class ChatBotService {
             return new BotReply("Added " + qty + "x" + item.getName() + "to cart.", true);
         }
 
+        if(low.startsWith("remove")){
+            String nameLike = low.replaceFirst("remove\\s+", "");
+            var items = new ArrayList<>(cartService.getCart(userId));
+            items.removeIf(i-> i.name().toLowerCase().contains(nameLike));
+            cartService.setCart(userId, items);
+            return new BotReply("Removed items matching '" + nameLike + "'.", true);
 
+        }
+
+        if (low.contains("checkout")) {
+            ws.convertAndSendToUser(String.valueOf(userId), "/queue/replies", new BotReply("Click Place Order' to confirm payment.", false));
+            return new BotReply("Ready to checkout! Type 'place order' or press the button.", false);
+        }
+        return new BotReply("Try: 'add 2 burger', 'remove burger', or 'checkout'.", false);
     }
 }

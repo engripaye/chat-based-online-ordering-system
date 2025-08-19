@@ -26,9 +26,9 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**", "/ws/**", "/actuator/health", "/api/menu/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/orders/**").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated())
-                .oauth2ResourceServer(oauth2 ->
-                        oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+                        .anyRequest().permitAll());
+             //   .oauth2ResourceServer(oauth2 ->
+               //         oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
         return http.build();
     }
 

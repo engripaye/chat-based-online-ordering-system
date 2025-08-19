@@ -21,8 +21,10 @@ public class Order {
     @Id
     @GeneratedValue
     private Long id;
+    private Long userId;
     private String status; // CREATED, PAID, PREPARING, READY, DELIVERED
     private BigDecimal total;
     private Instant createdAt = Instant.now();
-    @OneToMany(mappedBy = "orders", cascade=ALL) private List<OrderItem> Items = new ArrayList<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true) // ✅ mappedBy = "order"
+    private List<OrderItem> items = new ArrayList<>(); // ✅ lowercase variable name
 }

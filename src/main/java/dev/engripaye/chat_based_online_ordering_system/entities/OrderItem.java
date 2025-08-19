@@ -15,7 +15,10 @@ public class OrderItem {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne @JoinColumn(name = "order_id") private Order order;
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false) // ✅ FK column
+    private Order order;
+
     private Long menuItemId;
     private int qty;
     private BigDecimal price;

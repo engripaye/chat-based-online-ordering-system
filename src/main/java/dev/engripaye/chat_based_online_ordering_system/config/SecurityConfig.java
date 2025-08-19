@@ -23,12 +23,12 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/ws/**", "/actuator/health", "/api/menu/**", "/api/orders/create").permitAll()
+                        .requestMatchers("/auth/**", "/ws/**", "/actuator/health", "/api/menu/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/orders/**").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .anyRequest().permitAll());
-             //   .oauth2ResourceServer(oauth2 ->
-               //         oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+                        .anyRequest())
+             .oauth2ResourceServer(oauth2 ->
+                       oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
         return http.build();
     }
 
